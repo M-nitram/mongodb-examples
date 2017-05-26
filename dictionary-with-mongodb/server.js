@@ -7,7 +7,7 @@ const jsonParser = bodyParser.json();
 
 app.use(express.static('public'));
 
-const DATABASE_NAME = 'eng-dict';
+const DATABASE_NAME = 'eng-dict2';
 const MONGO_URL = `mongodb://localhost:27017/${DATABASE_NAME}`;
 
 let db = null;

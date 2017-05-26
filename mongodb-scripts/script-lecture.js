@@ -11,14 +11,19 @@ const MONGO_URL = `mongodb://localhost:27017/${DATABASE_NAME}`;
 let db = null;
 async function main() {
   db = await MongoClient.connect(MONGO_URL);
+  // insertWord('hello', 'a greeting');
+  await insertWordAsync('hello', 'a greeting');
+  console.log('insert finished?');
+
+
+  db.close();
 }
 main();
+
 
 // Callback verison of the above code:
 // MongoClient.connect(MONGO_URL, function (err, database) {
 //   db = database;
-//   insertWord('hello', 'a greeting');
-//   printDefinition('hello');
 // });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,9 +35,9 @@ function insertWord(word, definition) {
     word: word,
     definition: definition
   };
-  // Callback version of insertOne.
-  collection.insertOne(doc, function (err, result) {
-    console.log(`Document id: ${result.insertedId}`);
+  const collection = db.collection('words');
+  collection.insertOne(doc, function(err, response) {
+    console.log('Inserted');
   });
 }
 
@@ -41,17 +46,15 @@ async function insertWordAsync(word, definition) {
     word: word,
     definition: definition
   };
-  // Promise version of insertOne.
-  const result = await collection.insertOne(doc);
-  console.log(`Document id: ${result.insertedId}`);
+  const collection = db.collection('words');
+  const response = await collection.insertOne(doc);
+  console.log('Inserted');
 }
 
 async function printWord(word) {
   const queryDoc = {
     word: word
   };
-  const response = await collection.findOne(queryDoc);
-  console.log(`Word: ${response.word}, definition: ${response.definition}`);
 }
 
 async function updateWord(word, definition) {
@@ -62,7 +65,6 @@ async function updateWord(word, definition) {
     word: word,
     definition: definition
   };
-  const response = await collection.update(query, newEntry);
 }
 
 // Update word, and insert it if it doesn't exist.
@@ -74,29 +76,16 @@ async function upsertWord(word, definition) {
     word: word,
     definition: definition
   };
-  // See: https://docs.mongodb.com/manual/reference/method/db.collection.update/
-  const params = {
-    upsert: true
-  }
-  const response = await collection.update(query, newEntry, params);
 }
 
 async function deleteWord(word) {
   const query = {
     word: word
   };
-  const response = await collection.deleteOne(query);
-  console.log(`Number deleted: ${response.deletedCount}`);
 }
 
 async function deleteAllWords() {
-  const response = await collection.deleteMany();
-  console.log(`Number deleted: ${response.deletedCount}`);
 }
 
 async function printAllWords() {
-  const results = await collection.find().toArray();
-  for (const result of results) {
-    console.log(`Word: ${result.word}, definition: ${result.definition}`);
-  }
 }

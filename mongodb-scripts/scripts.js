@@ -41,6 +41,8 @@ async function main() {
   console.log('Delete all words:');
   await deleteAllWords();
   await printAllWords();
+  
+  db.close();
 }
 
 main();
