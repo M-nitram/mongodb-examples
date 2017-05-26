@@ -36,11 +36,11 @@ app.get('/', onGetMain);
 async function onSaveCard(req, res) {
   const style = req.body.style;
   const message = req.body.message;
+
   const doc = {
     style: style,
     message: message
   };
-
   const collection = db.collection('card');
   const response = await collection.insertOne(doc);
 
@@ -50,12 +50,8 @@ app.post('/save', jsonParser, onSaveCard);
 
 async function onGetCard(req, res) {
   const cardId = req.params.cardId;
-  console.log(`cardId: ${cardId}`);
   const collection = db.collection('card');
   const response = await collection.findOne({ _id: ObjectID(cardId) });
-  console.log(response);
-  console.log(response.style);
-  console.log(response.message);
 
   res.render('card', { message: response.message, style: response.style } );
 }
