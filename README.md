@@ -11,7 +11,7 @@
   - Run `$ npm start`
   - View the running app at http://localhost:3000
   
-  ## dictionary-spa
+## dictionary-spa
 - Dictionary lookup example written as a single-page app
 - Each word in the dictionary has its own page, like http://localhost:3000/dog
 - Example explained in [Lecture 25](https://docs.google.com/presentation/d/12ReR7wEcABB6uYm027hlEisiGfEHFm_dHBlkFTlKf84/edit#slide=id.g22b40c325b_0_722)
