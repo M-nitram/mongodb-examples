@@ -19,12 +19,8 @@ MongoClient.connect(MONGO_URL, async function(err, database) {
 async function onSaveCard(req, res) {
   const style = req.body.style;
   const message = req.body.message;
-  const doc = {
-    style: style,
-    message: message
-  };
-  const collection = db.collection('card');
-  const response = await collection.insertOne(doc);
-  res.json({ cardId: response.insertedId });
+
+  const cardId = ''; // something
+  res.json({ cardId: cardId });
 }
 app.post('/save', jsonParser, onSaveCard);
