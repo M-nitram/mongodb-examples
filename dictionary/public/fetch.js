@@ -12,6 +12,7 @@ async function onSearch(event) {
   const wordDisplay = results.querySelector('#word');
   const defDisplay = results.querySelector('#definition');
   wordDisplay.textContent = json.word;
+  wordDisplay.href = `/${json.word}`;
   defDisplay.textContent = json.definition;
 
   // Display.
