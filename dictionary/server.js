@@ -1,9 +1,9 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
+
 const exphbs  = require('express-handlebars');
 
 const app = express();
-
 const hbs = exphbs.create();
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
@@ -55,12 +55,12 @@ async function onViewWord(req, res) {
 
   const query = { word: word.toLowerCase() };
   const result = await collection.findOne(query);
+  const definition = result ? result.definition : '';
 
   const placeholders = {
     word: word,
-    definition: result ? result.definition : ''
+    definition: definition
   };
-  console.log(JSON.stringify(placeholders));
   res.render('word', placeholders);
 }
 app.get('/:word', onViewWord);
