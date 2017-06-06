@@ -1,6 +1,6 @@
 # MongoDB examples
 
-**NOTE:**
+**NOTE: Populating the dictionary database**
 - For the dictionary examples, you should first **populate your dictionary** on your computer using the `formatted-dictionary.json` file in `load-dict-script`.
 - To do this:
   - In your terminal, navigate to the `load-dict-script/` directory
